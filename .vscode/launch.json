@@ -1,0 +1,21 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: train test",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/train_test_split_incoherent.py",
+            "args": [
+                "/exports/projects/computer-audition/andreas/RemixPacks/organized_files/fine_16k/Pure",
+                "/exports/projects/computer-audition/andreas/fine_16k/train",
+                "/exports/projects/computer-audition/andreas/fine_16k/test",
+                ".9"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}
