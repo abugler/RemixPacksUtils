@@ -13,7 +13,7 @@ data:
         ...
 
 Split it into two folders, train and test, where train will have `p` fraction
-of files in each source, while test will have `1-p`. If `p` is 1, then 
+of files in each source, while test will have `1-p`. If `p` is 1, then
 train and test will be the same.
 
 Use absolute paths for best results
@@ -21,7 +21,9 @@ Use absolute paths for best results
 def split(src_folder, train_folder, test_folder, p):
     if p > 1 or p <= 0:
         raise ValueError("p must be between 0 and 1.")
-    sources = os.listdir(src_folder)
+    # Sorted and seed is used to ensure deterministic outcomes
+    sources = sorted(os.listdir(src_folder))
+    np.random.seed(0)
     for source in sources:
         # make directories
         src_source = path.join(src_folder, source)
@@ -29,7 +31,7 @@ def split(src_folder, train_folder, test_folder, p):
         test_source = path.join(test_folder, source)
         os.makedirs(train_source, exist_ok=True)
         os.makedirs(test_source, exist_ok=True)
-        audio_files = np.array(os.listdir(src_source)).astype(np.unicode_)
+        audio_files = np.array(sorted(os.listdir(src_source))).astype(np.unicode_)
         # split files
         n = len(audio_files)
         indices = np.random.choice(n, size=min(int(np.floor(n * p)), n), replace=False)
@@ -53,7 +55,7 @@ def split(src_folder, train_folder, test_folder, p):
             os.symlink(src, dst)
 
 
-help_text = "Usage: python <src_folder> <train_folder> <test_folder> <p>"
+help_text = "Usage: python train_test_split_incoherent.py <src_folder> <train_folder> <test_folder> <p>"
 
 if __name__ == "__main__":
     from sys import argv, exit

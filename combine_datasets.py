@@ -17,5 +17,3 @@ for root, _, files in os.walk(src):
             print(f"{dst_path} successfully created for {src_path}")
         except FileExistsError:
             print(f"{dst_path} exists")
-        
-            

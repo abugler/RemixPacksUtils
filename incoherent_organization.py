@@ -14,7 +14,7 @@ json_files = os.listdir("raw_json_labels")
 all_specific_instruments = []
 count = 0
 for j in json_files:
-    read_file = labels_path + j    
+    read_file = labels_path + j
     #obj = json.loads(read_file)
     with open(read_file, "r") as read:
         raw_file = json.load(read)
@@ -24,12 +24,12 @@ for j in json_files:
         simple_label = raw_file["completions"][0]["result"][0]["value"]["choices"]
         if "Garbage" in simple_label or "Silence" in simple_label:
             continue
-        
+
         if raw_file["completions"][0]["result"][1]["from_name"] != "fine":
             complex_label = []
         else:
             complex_label = raw_file["completions"][0]["result"][1]["value"]["choices"]
-        
+
         for label in complex_label:
             if label not in all_specific_instruments:
                 all_specific_instruments.append(label)
@@ -42,7 +42,7 @@ for j in json_files:
         new_path = new_path.replace("/vocals/", "/")
         new_path = new_path.replace("/other/", "/")
         new_file = new_path[:-4] #without the end tag
-        
+
         for extension in [".wav", ".ogg", ".flac", ".mp3"]:
             if os.path.exists(new_file + extension):
                 new_file = new_file + extension
@@ -55,8 +55,8 @@ for j in json_files:
         if default_ext == ".flac":
             name = name[:-1]
         name = name.replace("/", " ")
-        
-        
+
+
         '''
         #simple labelling
         if len(simple_label) == 1:
@@ -80,5 +80,5 @@ for j in json_files:
             for label in complex_label:
                 inst = label.replace(" ", "_")
                 os.symlink(new_file, "/home/data/RemixPacks/symlinks_to_files/fine/Mixed/" + inst + "/" + name + "(symlink)" + default_ext)
-    
+
         '''
